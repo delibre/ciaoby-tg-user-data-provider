@@ -1,11 +1,14 @@
 package by.ciao.userdatasender.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-@Entity
+import java.util.Date;
+
 @Getter @Setter
+@Entity
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,5 +25,9 @@ public class User {
     private String englishLvl;
 
     private int numOfCorrectAnswers;
+
+    @JsonIgnore
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date additionDateTime;
 
 }
