@@ -11,18 +11,6 @@ spring:
 
     open-in-view: false
 
-  mail:
-    host: smtp.gmail.com
-    port: 587
-    username: slavikbylo@gmail.com
-    password: 18032002Sl
-    properties:
-      mail:
-        smtp:
-          auth: true
-          starttls:
-            enable: true
-
   datasource:
     url: jdbc:mysql://localhost:3306/users
     username: admin

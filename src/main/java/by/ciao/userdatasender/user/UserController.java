@@ -29,7 +29,11 @@ public class UserController {
 
     @GetMapping("/last-hour")
     public List<User> getUsersForTheLastHour() {
-        return userRepository.findAllByAdditionDateTimeBetween(new Date(System.currentTimeMillis() - 3600 * 1000), new Date());
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.HOUR_OF_DAY, -1);
+        Date previousHour = cal.getTime();
+
+        return userRepository.findAllByAdditionDateTimeBetween(previousHour, new Date());
     }
 
     @GetMapping("/last-day")
