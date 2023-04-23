@@ -1,6 +1,5 @@
 package by.ciao.userdatasender.user;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,6 +15,7 @@ public class User {
 
     private String fullName;
 
+    @Column(unique=true)
     private String phone;
 
     private String username;
@@ -26,7 +26,12 @@ public class User {
 
     private int numOfCorrectAnswers;
 
-    @JsonIgnore
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date testCompletionDate;
+
+    @Column(unique=true)
+    private Long chatId;
+
     @Temporal(TemporalType.TIMESTAMP)
     private Date additionDateTime;
 
