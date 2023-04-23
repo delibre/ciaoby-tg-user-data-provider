@@ -1,8 +1,8 @@
-package by.ciao.userdatasender.controller;
+package by.ciao.controller;
 
-import by.ciao.userdatasender.service.UserService;
-import by.ciao.userdatasender.user.User;
-import by.ciao.userdatasender.user.UserDto;
+import by.ciao.service.UserService;
+import by.ciao.user.User;
+import by.ciao.user.UserDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

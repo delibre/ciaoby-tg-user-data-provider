@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>by.ciao</groupId>
-    <artifactId>UserDataSender</artifactId>
+    <artifactId>tg-user-data-provider</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>UserDataSender</name>
     <description>UserDataSender</description>

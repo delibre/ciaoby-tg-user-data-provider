@@ -1,6 +1,6 @@
-package by.ciao.userdatasender.repository;
+package by.ciao.repository;
 
-import by.ciao.userdatasender.user.User;
+import by.ciao.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

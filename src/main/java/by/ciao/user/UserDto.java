@@ -1,4 +1,4 @@
-package by.ciao.userdatasender.user;
+package by.ciao.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

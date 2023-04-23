@@ -1,9 +1,9 @@
-package by.ciao.userdatasender.service;
+package by.ciao.service;
 
-import by.ciao.userdatasender.controller.UserController;
-import by.ciao.userdatasender.repository.UserRepository;
-import by.ciao.userdatasender.user.User;
-import by.ciao.userdatasender.user.UserDto;
+import by.ciao.controller.UserController;
+import by.ciao.repository.UserRepository;
+import by.ciao.user.User;
+import by.ciao.user.UserDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
