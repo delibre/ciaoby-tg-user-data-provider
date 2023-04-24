@@ -11,7 +11,7 @@ public class UserDto {
     private String phone;
     private String username;
     private String referral;
-    private Long chatId;
+    private String chatId;
     private String englishLvl;
-    private int numOfCorrectAnswers;
+    private String numOfCorrectAnswers;
 }

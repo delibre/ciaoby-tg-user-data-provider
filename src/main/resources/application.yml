@@ -16,3 +16,6 @@ spring:
     username: admin
     password: pass
     driver-class-name: com.mysql.cj.jdbc.Driver
+
+server:
+  port: 8082

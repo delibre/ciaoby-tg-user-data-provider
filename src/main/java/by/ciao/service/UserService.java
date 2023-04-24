@@ -6,11 +6,11 @@ import by.ciao.user.User;
 import by.ciao.user.UserDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.*;
 
-@Component
+@Service
 public class UserService {
 
     private final UserRepository userRepository;
@@ -26,9 +26,9 @@ public class UserService {
                 user.getPhone(),
                 user.getUsername(),
                 user.getReferral(),
-                user.getChatId(),
+                user.getChatId().toString(),
                 user.getEnglishLvl(),
-                user.getNumOfCorrectAnswers()
+                user.getNumOfCorrectAnswers().toString()
         );
     }
 

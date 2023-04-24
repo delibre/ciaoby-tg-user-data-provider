@@ -24,7 +24,7 @@ public class User {
 
     private String englishLvl;
 
-    private int numOfCorrectAnswers;
+    private Integer numOfCorrectAnswers;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date testCompletionDate;
