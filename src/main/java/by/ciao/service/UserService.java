@@ -1,6 +1,5 @@
 package by.ciao.service;
 
-import by.ciao.controller.UserController;
 import by.ciao.repository.UserRepository;
 import by.ciao.user.User;
 import by.ciao.user.UserDto;
@@ -14,7 +13,7 @@ import java.util.*;
 public class UserService {
 
     private final UserRepository userRepository;
-    private static final Logger log = LoggerFactory.getLogger(UserController.class);
+    private static final Logger log = LoggerFactory.getLogger(UserService.class);
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -26,9 +25,9 @@ public class UserService {
                 user.getPhone(),
                 user.getUsername(),
                 user.getReferral(),
-                user.getChatId().toString(),
+                user.getChatId(),
                 user.getEnglishLvl(),
-                user.getNumOfCorrectAnswers().toString()
+                user.getNumOfCorrectAnswers()
         );
     }
 
@@ -42,8 +41,12 @@ public class UserService {
         return userDtos;
     }
 
-    public UserDto addUser(final User user) {
+    public UserDto addUser(final UserDto userDto) {
+        User user = new User();
+        user.setChatId(userDto.getChatId());
+        user.setUsername(userDto.getUsername());
         user.setAdditionDateTime(new Date());
+
         return newDto(userRepository.save(user));
     }
 
@@ -51,7 +54,7 @@ public class UserService {
         return createDtoList(userRepository.findAll());
     }
 
-    public UserDto getUserByChatId(final Long chatId) {
+    public UserDto getUserByChatId(final String chatId) {
         User user = userRepository.getUserByChatId(chatId)
                 .orElse( null);
         if (user == null) return null;
@@ -84,7 +87,7 @@ public class UserService {
         return createDtoList(userRepository.findAllByAdditionDateTimeBetween(yesterdayStart, yesterdayEnd));
     }
 
-    public UserDto updateContactInfo(Long chatId, User updateUser) {
+    public UserDto updateContactInfo(String chatId, UserDto updateUser) {
         User user = userRepository.getUserByChatId(chatId)
                 .orElseThrow(() -> {
                     log.error("User with such chatId does not exist " + chatId);
@@ -99,7 +102,7 @@ public class UserService {
         return newDto(userRepository.save(user));
     }
 
-    public UserDto updateTestInfo(Long chatId, User updateUser) {
+    public UserDto updateTestInfo(String chatId, UserDto updateUser) {
         User user = userRepository.getUserByChatId(chatId)
                 .orElseThrow(() -> {
                     log.error("User with such chatId does not exist " + chatId);
@@ -112,6 +115,5 @@ public class UserService {
 
         return newDto(userRepository.save(user));
     }
-
 
 }

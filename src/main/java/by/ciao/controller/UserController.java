@@ -1,7 +1,6 @@
 package by.ciao.controller;
 
 import by.ciao.service.UserService;
-import by.ciao.user.User;
 import by.ciao.user.UserDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,8 +18,8 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<UserDto> addUser(@RequestBody User user) {
-        return ResponseEntity.ok(userService.addUser(user));
+    public ResponseEntity<UserDto> addUser(@RequestBody UserDto userDto) {
+        return ResponseEntity.ok(userService.addUser(userDto));
     }
 
     @GetMapping
@@ -29,7 +28,7 @@ public class UserController {
     }
 
     @GetMapping("/{chatId}")
-    public ResponseEntity<UserDto> getUserByChatId(@PathVariable Long chatId) {
+    public ResponseEntity<UserDto> getUserByChatId(@PathVariable String chatId) {
         return ResponseEntity.ok(userService.getUserByChatId(chatId));
     }
 
@@ -44,12 +43,12 @@ public class UserController {
     }
 
     @PutMapping("/update-contactinfo/{chatId}")
-    public ResponseEntity<UserDto> updateContactInfo(@PathVariable Long chatId, @RequestBody User updateUser) {
+    public ResponseEntity<UserDto> updateContactInfo(@PathVariable String chatId, @RequestBody UserDto updateUser) {
         return ResponseEntity.ok(userService.updateContactInfo(chatId, updateUser));
     }
 
     @PutMapping("/update-testinfo/{chatId}")
-    public ResponseEntity<UserDto> updateTestInfo(@PathVariable Long chatId, @RequestBody User updateUser) {
+    public ResponseEntity<UserDto> updateTestInfo(@PathVariable String chatId, @RequestBody UserDto updateUser) {
         return ResponseEntity.ok(userService.updateTestInfo(chatId, updateUser));
     }
 

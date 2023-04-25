@@ -6,8 +6,8 @@ import lombok.Setter;
 
 import java.util.Date;
 
-@Getter @Setter
 @Entity
+@Getter @Setter
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,13 +24,13 @@ public class User {
 
     private String englishLvl;
 
-    private Integer numOfCorrectAnswers;
+    private String numOfCorrectAnswers;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date testCompletionDate;
 
     @Column(unique=true)
-    private Long chatId;
+    private String chatId;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date additionDateTime;

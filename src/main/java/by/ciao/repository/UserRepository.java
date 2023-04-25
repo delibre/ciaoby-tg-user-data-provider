@@ -11,5 +11,5 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
     List<User> findAllByAdditionDateTimeBetween(Date additionTimeStart, Date additionTimeEnd);
-    Optional<User> getUserByChatId(Long chatId);
+    Optional<User> getUserByChatId(String chatId);
 }
