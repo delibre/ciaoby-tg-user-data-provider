@@ -96,7 +96,6 @@ public class UserService {
 
         user.setFullName(updateUser.getFullName());
         user.setPhone(updateUser.getPhone());
-        user.setUsername(updateUser.getUsername());
         user.setReferral(updateUser.getReferral());
 
         return newDto(userRepository.save(user));
