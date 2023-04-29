@@ -1,4 +1,4 @@
-package by.ciao.userdatasender;
+package by.ciao;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,0 +1,19 @@
+version: '3.7'
+services:
+  db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'users'
+      MYSQL_USER: 'admin'
+      MYSQL_PASSWORD: 'pass'
+      MYSQL_ROOT_PASSWORD: 'pass'
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    volumes:
+      - user_data_sender:/var/lib/mysql
+
+volumes:
+  user_data_sender:

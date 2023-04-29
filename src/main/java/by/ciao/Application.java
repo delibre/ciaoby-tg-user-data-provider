@@ -1,13 +1,13 @@
-package by.ciao.userdatasender;
+package by.ciao;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class UserDataSenderApplication {
+public class Application {
 
     public static void main(String[] args) {
-        SpringApplication.run(UserDataSenderApplication.class, args);
+        SpringApplication.run(Application.class, args);
     }
 
 }
