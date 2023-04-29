@@ -2,14 +2,14 @@
 
 ## Overview
 
-The **"User Data Provider"** is a **Spring Boot** application that uses REST API to handle user data management in a 
-database. It supports the features of two Telegram bots, namely 
+The **"User Data Provider"** is a microservice built with Spring Boot that uses a REST API to manage user data in a 
+database. It has been designed to support the functionality of two Telegram bots, the 
 [**"English Level Tester"**](https://github.com/delibre/tg-english-test-bot/) and 
-[**"Admin Bot"**](https://github.com/delibre/tg-admin-bot). 
+[**"Admin Bot"**](https://github.com/delibre/tg-admin-bot).
 
-The information of users is sent by the [**"English Level Tester"**](https://github.com/delibre/tg-english-test-bot/) 
-bot to the endpoints of the application. Subsequently, the [**"Admin Bot"**](https://github.com/delibre/tg-admin-bot) 
-is capable of retrieving this data to access users information.
+When users interact with the [**"English Level Tester"**](https://github.com/delibre/tg-english-test-bot/) bot, their 
+information is sent to the application's endpoints. Later, the [**"Admin Bot"**](https://github.com/delibre/tg-admin-bot)
+can use this data to retrieve information about users.
 
 ### Technologies Used
 
@@ -35,6 +35,8 @@ docker compose up
 4. Modify the application.yml file to meet your requirements. Verify that the port provided for the application is 
 available
 5. Launch the application
+6. Download, install and launch the ["English Level Tester"](https://github.com/delibre/tg-english-test-bot) bot
+7. Download, install and launch the ["Admin Bot"](https://github.com/delibre/tg-admin-bot)
 
 
 ## Source Code Review
