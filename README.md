@@ -15,11 +15,16 @@ can use this data to retrieve information about users.
 
 * **Java17**
 * **Spring Boot** v3.0.5
-* **Spring Web** v3.0.5
-* **Spring Data JPA** v3.0.5 
-* **Spring Context Support** v3.0.5
+* **Spring Web** 
+* **Spring Data JPA** 
+* **Hibernate** 
+* **MySQL** v8.0
 * **MySQL Connector/J** v8.0.33
 * **Lombok** v1.18.26
+
+### TODO
+
+* Add security token
 
 
 ## Guidelines
