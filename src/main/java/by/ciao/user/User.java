@@ -3,7 +3,9 @@ package by.ciao.user;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.NaturalId;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -15,7 +17,7 @@ public class User {
 
     private String fullName;
 
-    @Column(unique=true)
+    @Column(unique = true)
     private String phone;
 
     private String username;
@@ -26,10 +28,9 @@ public class User {
 
     private String numOfCorrectAnswers;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date testCompletionDate;
+    private LocalDateTime testCompletionDate;
 
-    @Column(unique=true)
+    @NaturalId
     private String chatId;
 
     @Temporal(TemporalType.TIMESTAMP)

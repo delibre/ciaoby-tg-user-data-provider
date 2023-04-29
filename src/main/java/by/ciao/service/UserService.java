@@ -5,40 +5,43 @@ import by.ciao.user.User;
 import by.ciao.user.UserDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
 
     private final UserRepository userRepository;
     private static final Logger log = LoggerFactory.getLogger(UserService.class);
+    private final Function<User, UserDto> mappingFunction = (user) -> {
+        UserDto userDto = new UserDto();
+
+        userDto.setFullName(user.getFullName());
+        userDto.setPhone(user.getPhone());
+        userDto.setUsername(user.getUsername());
+        userDto.setReferral(user.getReferral());
+        userDto.setChatId(user.getChatId());
+        userDto.setEnglishLvl(user.getEnglishLvl());
+        userDto.setNumOfCorrectAnswers(user.getNumOfCorrectAnswers());
+
+        return userDto;
+    };
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
-    private UserDto newDto(final User user) {
-        return new UserDto(
-                user.getFullName(),
-                user.getPhone(),
-                user.getUsername(),
-                user.getReferral(),
-                user.getChatId(),
-                user.getEnglishLvl(),
-                user.getNumOfCorrectAnswers()
-        );
-    }
-
-    private List<UserDto> createDtoList(final List<User> users) {
-        List<UserDto> userDtos = new ArrayList<>();
-
-        for (User user : users) {
-            userDtos.add(newDto(user));
-        }
-
-        return userDtos;
+    private List<UserDto> createDtoListFromUsers(final List<User> users) {
+        return users.stream()
+                .map(mappingFunction)
+                .collect(Collectors.toList());
     }
 
     public UserDto addUser(final UserDto userDto) {
@@ -47,44 +50,29 @@ public class UserService {
         user.setUsername(userDto.getUsername());
         user.setAdditionDateTime(new Date());
 
-        return newDto(userRepository.save(user));
+        return mappingFunction.apply(userRepository.save(user));
     }
 
     public List<UserDto> getAll() {
-        return createDtoList(userRepository.findAll());
+        return createDtoListFromUsers(userRepository.findAll());
     }
 
     public UserDto getUserByChatId(final String chatId) {
-        User user = userRepository.getUserByChatId(chatId)
-                .orElse( null);
-        if (user == null) return null;
-
-        return newDto(user);
+        return userRepository.getUserByChatId(chatId)
+                .map(mappingFunction)
+                .orElse(null);
     }
 
     public List<UserDto> getUsersForTheLastHour() {
-        Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.HOUR_OF_DAY, -1);
-        Date previousHour = cal.getTime();
-
-        return createDtoList(userRepository.findAllByAdditionDateTimeBetween(previousHour, new Date()));
+        LocalDateTime previousHour = LocalDateTime.now().minusHours(1);
+        return createDtoListFromUsers(userRepository.findAllByTestCompletionDateBetween(previousHour, LocalDateTime.now()));
     }
 
     public List<UserDto> getUsersForTheLastDay() {
-        Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.DAY_OF_MONTH, -1);
-        cal.set(Calendar.HOUR_OF_DAY, 0);
-        cal.set(Calendar.MINUTE, 0);
-        cal.set(Calendar.SECOND, 0);
+        LocalDateTime previousDayStart = LocalDateTime.now().minusDays(1).withHour(0).withMinute(0).withSecond(0).withNano(0);
+        LocalDateTime previousDayEnd = LocalDateTime.now().minusDays(1).withHour(23).withMinute(59).withSecond(59).withNano(999999999);
 
-        Date yesterdayStart = cal.getTime();
-        cal.set(Calendar.HOUR_OF_DAY, 23);
-        cal.set(Calendar.MINUTE, 59);
-        cal.set(Calendar.SECOND, 59);
-
-        Date yesterdayEnd = cal.getTime();
-
-        return createDtoList(userRepository.findAllByAdditionDateTimeBetween(yesterdayStart, yesterdayEnd));
+        return createDtoListFromUsers(userRepository.findAllByTestCompletionDateBetween(previousDayStart, previousDayEnd));
     }
 
     public UserDto updateContactInfo(String chatId, UserDto updateUser) {
@@ -94,11 +82,9 @@ public class UserService {
                     return new NoSuchElementException("User with such chatId does not exist " + chatId);
                 });
 
-        user.setFullName(updateUser.getFullName());
-        user.setPhone(updateUser.getPhone());
-        user.setReferral(updateUser.getReferral());
+        BeanUtils.copyProperties(updateUser, user, "id", "chatId", "additionDateTime");
 
-        return newDto(userRepository.save(user));
+        return mappingFunction.apply(userRepository.save(user));
     }
 
     public UserDto updateTestInfo(String chatId, UserDto updateUser) {
@@ -108,11 +94,9 @@ public class UserService {
                     return new NoSuchElementException("User with such chatId does not exist " + chatId);
                 });
 
-        user.setEnglishLvl(updateUser.getEnglishLvl());
-        user.setNumOfCorrectAnswers(updateUser.getNumOfCorrectAnswers());
-        user.setTestCompletionDate(new Date());
+        BeanUtils.copyProperties(updateUser, user, "id", "chatId", "additionDateTime");
 
-        return newDto(userRepository.save(user));
+        return mappingFunction.apply(userRepository.save(user));
     }
 
 }
